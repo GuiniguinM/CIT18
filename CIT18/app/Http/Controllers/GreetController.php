@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 class GreetController extends Controller
 {
-    public function show() {
+    // Method to return the greet view
+    public function greet()
+    {
         return view('greet');
-    }    
+    }
 }

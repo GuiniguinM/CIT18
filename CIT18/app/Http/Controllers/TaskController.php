@@ -10,7 +10,7 @@ class TaskController extends Controller
     // Display a listing of the tasks
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::all(); // Fetch all tasks
         return view('tasks.index', compact('tasks'));
     }
 
@@ -27,9 +27,14 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
-
-        Task::create($request->all());
-        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+    
+        Task::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'is_completed' => false,
+        ]);
+    
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully!');
     }
 
     // Display the specified task
@@ -52,9 +57,14 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'is_completed' => 'boolean',
         ]);
-
-        $task->update($request->all());
-        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
+    
+        $task->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'is_completed' => $request->is_completed ?? false,
+        ]);
+    
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully!');
     }
 
     // Remove the specified task from the database
