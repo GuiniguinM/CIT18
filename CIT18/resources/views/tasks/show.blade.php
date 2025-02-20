@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Details</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
     <h1>{{ $task->title }}</h1>
     <p>{{ $task->description }}</p>
-    <p>Status: {{ $task->is_completed ? 'Completed' : 'Not Completed' }}</p>
-    <a href="{{ route('tasks.edit', $task->id) }}">Edit</a>
-    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
+    <p>Status: {{ $task->is_completed ? 'Completed' : 'Incomplete' }}</p>
+    <a href="{{ route('tasks.edit', $task) }}">Edit Task</a>
+    <form action="{{ route('tasks.destroy', $task) }}" method="POST">
         @csrf
         @method('DELETE')
-        <button type="submit">Delete</button>
+        <button type="submit">Delete Task</button>
     </form>
-</body>
-</html>
+@endsection
